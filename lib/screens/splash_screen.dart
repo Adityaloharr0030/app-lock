@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../services/native_lock_service.dart';
+
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +22,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     // Elegant transition delay
     await Future.delayed(const Duration(milliseconds: 1500));
     if (!mounted) return;
+    if (NativeLockService.isLockScreenActive) {
+      debugPrint('Lock screen is active, skipping automatic splash transition');
+      return;
+    }
     context.go('/weather');
   }
 

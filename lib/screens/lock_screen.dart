@@ -6,6 +6,8 @@ import '../providers/auth_provider.dart';
 import '../widgets/pin_pad.dart';
 import '../widgets/fingerprint_scanner_widget.dart';
 import '../services/auth_manager.dart';
+import '../services/native_lock_service.dart';
+
 
 class LockScreen extends ConsumerStatefulWidget {
   final String packageName;
@@ -44,11 +46,13 @@ class _LockScreenState extends ConsumerState<LockScreen>
   @override
   void initState() {
     super.initState();
+    NativeLockService.isLockScreenActive = true;
     _loadBiometricState();
   }
 
   @override
   void dispose() {
+    NativeLockService.isLockScreenActive = false;
     _lockoutTimer?.cancel();
     _secretTapTimer?.cancel();
     super.dispose();

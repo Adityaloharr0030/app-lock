@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 class NativeLockService {
   static const _channel = MethodChannel('com.aditya.applocker/lock_service');
+  static bool isLockScreenActive = false;
+
 
   static Future<void> startService() async {
     try {
